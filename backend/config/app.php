@@ -9,6 +9,8 @@
     'TRANSLATION' => env('TRANSLATION'),
     'LOADING_ITEMS' => env('LOADING_ITEMS'),
     'CLIENT_URI' => env('CLIENT_URI'),
+    'PUSH_HUB' => env('PUSH_HUB'),
+    'PUSH_TOPIC' => env('PUSH_TOPIC'),
 
     /*
     |--------------------------------------------------------------------------

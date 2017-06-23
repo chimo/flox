@@ -9,6 +9,9 @@
   use App\Setting;
   use Illuminate\Support\Facades\Input;
 
+  use GuzzleHttp\Exception\GuzzleException;
+  use GuzzleHttp\Client;
+
   class ItemController {
 
     private $loadingItems;
@@ -165,9 +168,25 @@
 
       if($mediaType == 'tv') {
         $this->createEpisodes($tmdbId, $tmdb);
+      } else {
+        $this->pingHub();
       }
 
       return $item;
+    }
+
+    private function pingHub()
+    {
+      $push_hub = config('app.PUSH_HUB');
+      $push_topic = config('app.PUSH_TOPIC');
+
+      $client = new Client();
+      $result = $client->post($push_hub, [
+        'form_params' => [
+          'hub.mode' => 'publish',
+          'hub.url' => $push_topic
+        ]
+      ]);
     }
 
     /**
@@ -183,6 +202,10 @@
 
       if( ! $episode->save()) {
         return response('Server Error', 500);
+      }
+
+      if ($episode->seen) {
+        $this->pingHub();
       }
     }
 
