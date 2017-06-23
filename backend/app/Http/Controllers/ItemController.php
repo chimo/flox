@@ -36,6 +36,8 @@
      */
     public function items($type, $orderBy)
     {
+      $per_page = Input::get('per_page', $this->loadingItems);
+
       $orderType = $orderBy == 'rating' ? 'asc' : 'desc';
 
       $item = $this->item->orderBy($orderBy, $orderType)->with('latestEpisode');
@@ -44,7 +46,7 @@
         $item = $item->where('media_type', $type);
       }
 
-      return $item->simplePaginate($this->loadingItems);
+      return $item->simplePaginate($per_page);
     }
 
     /**
