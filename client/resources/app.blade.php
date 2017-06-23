@@ -8,6 +8,7 @@
 
   <title>Flox - Collect Your Movie, Series and Anime Watch List</title>
   <link rel="stylesheet" href="{{ url('assets/app.css') }}">
+  <link rel="stylesheet" href="{{ url('assets/custom.css') }}">
   <link href="{{ url('assets/favicon.ico?v=3') }}" rel="icon" type="image/x-icon">
 
 </head>
